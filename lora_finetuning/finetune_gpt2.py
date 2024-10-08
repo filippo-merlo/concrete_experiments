@@ -17,8 +17,13 @@ from transformers import (
 )
 from utils_lora import generate_text, print_weights_and_size
 
-from concrete.ml.torch.hybrid_model import HybridFHEModel
-from concrete.ml.torch.lora import LoraTraining, get_remote_names
+import os 
+import sys 
+module_path = "/home/filippo.merlo/concrete_experiments/src/concrete/ml/torch"
+if module_path not in sys.path:
+    sys.path.append(module_path)
+from hybrid_model import HybridFHEModel
+from lora import LoraTraining, get_remote_names
 
 # Set random seed for reproducibility
 SEED = 0
