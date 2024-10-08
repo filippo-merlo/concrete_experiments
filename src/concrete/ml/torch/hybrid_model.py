@@ -19,9 +19,10 @@ from brevitas.quant_tensor import QuantTensor
 from concrete.fhe import Configuration
 from torch import nn
 
-from ..common.utils import MAX_BITWIDTH_BACKWARD_COMPATIBLE
-from ..deployment.fhe_client_server import FHEModelClient, FHEModelDev, FHEModelServer
-from .compile import (
+
+from concrete.ml.common.utils import MAX_BITWIDTH_BACKWARD_COMPATIBLE
+from concrete.ml.deployment.fhe_client_server import FHEModelClient, FHEModelDev, FHEModelServer
+from concrete.ml.torch.compile import (
     QuantizedModule,
     compile_brevitas_qat_model,
     compile_torch_model,
