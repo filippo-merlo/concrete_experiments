@@ -26,11 +26,11 @@ torch.manual_seed(SEED)
 torch.use_deterministic_algorithms(True)
 
 # Load pre-trained GPT-2 model and tokenizer
-chache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/cache"
+cache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/cache"
 model_cache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models"
 model_name = "gpt2"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
+model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=model_cache_dir)
 
 # Ensure tokenizer has a pad token
 if tokenizer.pad_token is None:
@@ -68,7 +68,7 @@ train_dataset = TextDataset(
     tokenizer=tokenizer,
     file_path="data_finetune/what_is_fhe.txt",
     block_size=BLOCK_SIZE,
-    cache_dir="cache_dataset",
+    cache_dir=cache_dir,
 )
 
 # Set up data collator for language modeling
@@ -79,7 +79,7 @@ EPOCHS = 50
 PER_DEVICE_TRAIN_BATCH_SIZE = 4
 
 training_args = TrainingArguments(
-    output_dir="./checkpoints",
+    output_dir="/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models/checkpoints",
     num_train_epochs=EPOCHS,
     per_device_train_batch_size=8,
     gradient_accumulation_steps=2,
