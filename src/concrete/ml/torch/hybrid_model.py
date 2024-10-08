@@ -251,7 +251,7 @@ class RemoteModule(nn.Module):
             # Using quantized module
             assert self.private_q_module is not None
             y = torch.Tensor(
-                self.private_q_module.forward(x.detach().numpy(), fhe=self.fhe_local_mode.value)
+                self.private_q_module.forward(x.detach().cpu().numpy(), fhe=self.fhe_local_mode.value)
             )
 
         elif self.fhe_local_mode == HybridFHEMode.CALIBRATE:
@@ -292,7 +292,7 @@ class RemoteModule(nn.Module):
         inferences: List[numpy.ndarray] = []
         for index in range(len(x)):
             # Manage tensor, tensor shape, and encrypt tensor
-            clear_input = x[[index], :].detach().numpy()
+            clear_input = x[[index], :].detach().cpu().numpy()
             input_shape = (1,) + tuple(clear_input.shape)
             repr_input_shape = str(input_shape[1:])
             assert isinstance(clear_input, numpy.ndarray)
