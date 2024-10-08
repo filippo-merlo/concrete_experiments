@@ -26,6 +26,8 @@ torch.manual_seed(SEED)
 torch.use_deterministic_algorithms(True)
 
 # Load pre-trained GPT-2 model and tokenizer
+chache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/cache"
+model_cache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models"
 model_name = "gpt2"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
