@@ -135,7 +135,7 @@ inputset = (input_tensor, label_tensor)
 
 # Calibrate and compile the model
 hybrid_model.model.toggle_calibrate(enable=True)
-hybrid_model.compile_model(inputset, n_bits=16)
+hybrid_model.compile_model(inputset, n_bits=16, use_gpu=True)
 hybrid_model.model.toggle_calibrate(enable=False)
 
 def train_custom_model(
