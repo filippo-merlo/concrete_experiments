@@ -138,7 +138,7 @@ inputset = (input_tensor, label_tensor)
 print('Calibrating the model...')
 hybrid_model.model.toggle_calibrate(enable=True)
 print('Compiling the model...')
-hybrid_model.compile_model(inputset, n_bits=16, use_gpu=True)
+hybrid_model.compile_model(inputset, n_bits=16, device='cuda')
 print('Calibrating the model...')
 hybrid_model.model.toggle_calibrate(enable=False)
 
