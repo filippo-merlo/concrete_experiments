@@ -133,9 +133,13 @@ label_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * 
 
 inputset = (input_tensor, label_tensor)
 
+
 # Calibrate and compile the model
+print('Calibrating the model...')
 hybrid_model.model.toggle_calibrate(enable=True)
+print('Compiling the model...')
 hybrid_model.compile_model(inputset, n_bits=16, use_gpu=True)
+print('Calibrating the model...')
 hybrid_model.model.toggle_calibrate(enable=False)
 
 def train_custom_model(
