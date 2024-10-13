@@ -80,7 +80,7 @@ training_args = TrainingArguments(
     per_device_train_batch_size=8,
     gradient_accumulation_steps=2,
     save_total_limit=1,
-    use_cpu=True,
+    use_cpu=False,
     learning_rate=5e-3,
     logging_strategy="epoch",
     optim="adamw_torch",
@@ -126,12 +126,12 @@ label_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * 
 inputset = (input_tensor, label_tensor)
 # Calibrate and compile the model
 hybrid_model.model.toggle_calibrate(enable=True)
-hybrid_model.compile_model(inputset, n_bits=16)
+hybrid_model.compile_model(inputset, n_bits=16, device="cuda")
 hybrid_model.model.toggle_calibrate(enable=False)
 def train_custom_model(
     hybrid_model, train_dataloader, training_args, fhe="disable"
 ):  # pylint: disable=too-many-locals
-    device = "cpu"
+    device = "cuda"
     hybrid_model.model.to(device)
 
     # Training loop
