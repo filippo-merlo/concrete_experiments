@@ -134,7 +134,7 @@ hybrid_model.model.toggle_calibrate(enable=False)
 def train_custom_model(
     hybrid_model, train_dataloader, training_args, fhe="disable"
 ):  # pylint: disable=too-many-locals
-    device = "gpu"
+    device = "cuda"
     hybrid_model.model.to(device)
 
     # Training loop
