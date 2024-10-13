@@ -21,9 +21,11 @@ SEED = 0
 torch.manual_seed(SEED)
 torch.use_deterministic_algorithms(True)
 # Load pre-trained GPT-2 model and tokenizer
+cache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/cache"
+model_cache_dir = "/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models"
 model_name = "gpt2"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
+model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=model_cache_dir)
 
 # Ensure tokenizer has a pad token
 if tokenizer.pad_token is None:
@@ -150,7 +152,7 @@ EPOCHS = 20
 PER_DEVICE_TRAIN_BATCH_SIZE = 4
 
 training_args = TrainingArguments(
-    output_dir="./checkpoints",
+    output_dir="/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models/checkpoints",
     num_train_epochs=EPOCHS,
     per_device_train_batch_size=PER_DEVICE_TRAIN_BATCH_SIZE,
     gradient_accumulation_steps=1,
@@ -327,7 +329,7 @@ peft_model.enable_adapter_layers()
 # Print weights and model size
 total_weights_size = print_weights_and_size(hybrid_model.model)
 # Save the model
-path = Path("deployment/gpt2_lora_finetuned")
+path = Path("/mnt/cimec-storage6/users/filippo.merlo/concrete_experiments/models/gpt2_lora_finetuned")
 path.mkdir(parents=True, exist_ok=True)
 
 if path.is_dir() and any(path.iterdir()):
