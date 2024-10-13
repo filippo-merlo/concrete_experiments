@@ -123,8 +123,10 @@ input_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * 
 label_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * (
     tokenizer.vocab_size - 1
 )
-input_tensor.to("cuda")
-label_tensor.to("cuda")
+
+input_tensor = input_tensor.to("cuda")
+label_tensor = label_tensor.to("cuda")
+
 inputset = (input_tensor, label_tensor)
 
 # Calibrate and compile the model
