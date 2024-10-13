@@ -155,7 +155,7 @@ training_args = TrainingArguments(
     per_device_train_batch_size=PER_DEVICE_TRAIN_BATCH_SIZE,
     gradient_accumulation_steps=1,
     save_total_limit=1,
-    use_cpu=True,
+    use_cpu=False,
     learning_rate=2e-3,
     lr_scheduler_type="linear",
     seed=SEED,
@@ -214,12 +214,12 @@ attention_mask = torch.ones((PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE))
 inputset = (input_tensor, label_tensor, attention_mask)
 # Calibrate and compile the model
 lora_training.toggle_calibrate(enable=True)
-hybrid_model.compile_model(inputset, n_bits=16)
+hybrid_model.compile_model(inputset, n_bits=16, device="cuda")
 lora_training.toggle_calibrate(enable=False)
 def train_custom_model(
     hybrid_model, train_dataloader, training_args, tokenizer, fhe="disable"
 ):  # pylint: disable=too-many-locals
-    device = "cpu"
+    device = "cuda"
     hybrid_model.model.to(device)
 
     # Training loop
