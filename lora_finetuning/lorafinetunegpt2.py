@@ -119,13 +119,13 @@ hybrid_model = HybridFHEModel(lora_training, module_names=remote_names)
 # Prepare input data for calibration
 input_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * (
     tokenizer.vocab_size - 1
-)
+).to("cuda")
 label_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * (
     tokenizer.vocab_size - 1
-)
+).to("cuda")
 
 inputset = (input_tensor, label_tensor)
-inputset.to("cuda")
+
 # Calibrate and compile the model
 hybrid_model.model.toggle_calibrate(enable=True)
 hybrid_model.compile_model(inputset, n_bits=16, device="cuda")
