@@ -1,4 +1,3 @@
--e ../../.
 transformers==4.41.2
 peft==0.11.1
 Jinja2==3.1.4
