@@ -216,7 +216,7 @@ attention_mask = torch.ones((PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE))
 inputset = (input_tensor, label_tensor, attention_mask)
 # Calibrate and compile the model
 lora_training.toggle_calibrate(enable=True)
-hybrid_model.compile_model(inputset, n_bits=16, device="cpu")
+hybrid_model.compile_model(inputset, n_bits=16)
 lora_training.toggle_calibrate(enable=False)
 def train_custom_model(
     hybrid_model, train_dataloader, training_args, tokenizer, fhe="disable"
