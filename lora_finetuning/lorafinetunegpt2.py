@@ -58,6 +58,7 @@ peft_config = LoraConfig(
 peft_model = get_peft_model(model, peft_config)
 # Set up LoRA training
 lora_training = LoraTraining(peft_model)
+print(lora_training)
 # Prepare dataset for fine-tuning
 BLOCK_SIZE = 128
 
