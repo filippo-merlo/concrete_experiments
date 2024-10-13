@@ -58,7 +58,6 @@ peft_config = LoraConfig(
 peft_model = get_peft_model(model, peft_config)
 # Set up LoRA training
 lora_training = LoraTraining(peft_model)
-print(lora_training)
 # Prepare dataset for fine-tuning
 BLOCK_SIZE = 128
 
@@ -114,6 +113,7 @@ lora_training.update_training_parameters(
 )
 # Get the names of the remote modules (layers to be converted to FHE)
 remote_names = get_remote_names(lora_training, include_embedding_layers=False)
+print(remote_names)
 # Create the HybridFHEModel with the specified remote modules
 hybrid_model = HybridFHEModel(lora_training, module_names=remote_names)
 # Prepare input data for calibration
