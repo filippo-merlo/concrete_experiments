@@ -57,7 +57,7 @@ peft_config = LoraConfig(
 # Apply LoRA to the model
 peft_model = get_peft_model(model, peft_config)
 # Set up LoRA training
-lora_training = LoraTraining(peft_model)
+lora_training = LoraTraining(peft_model.to("cuda"))
 # Prepare dataset for fine-tuning
 BLOCK_SIZE = 128
 
