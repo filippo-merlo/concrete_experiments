@@ -115,7 +115,7 @@ lora_training.update_training_parameters(
 remote_names = get_remote_names(lora_training, include_embedding_layers=False)
 
 # Create the HybridFHEModel with the specified remote modules
-hybrid_model = HybridFHEModel(lora_training, module_names=remote_names)
+hybrid_model = HybridFHEModel(lora_training, module_names=remote_names).to("cuda")
 # Prepare input data for calibration
 input_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * (
     tokenizer.vocab_size - 1
