@@ -125,9 +125,9 @@ label_tensor = torch.randint(0, 2, (PER_DEVICE_TRAIN_BATCH_SIZE, BLOCK_SIZE)) * 
 )
 
 inputset = (input_tensor, label_tensor)
+inputset.to("cuda")
 # Calibrate and compile the model
 hybrid_model.model.toggle_calibrate(enable=True)
-hybrid_model.model.to("cuda")
 hybrid_model.compile_model(inputset, n_bits=16, device="cuda")
 hybrid_model.model.toggle_calibrate(enable=False)
 
