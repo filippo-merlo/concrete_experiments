@@ -113,7 +113,7 @@ lora_training.update_training_parameters(
 )
 # Get the names of the remote modules (layers to be converted to FHE)
 remote_names = get_remote_names(lora_training, include_embedding_layers=False)
-print(remote_names)
+
 # Create the HybridFHEModel with the specified remote modules
 hybrid_model = HybridFHEModel(lora_training, module_names=remote_names)
 # Prepare input data for calibration
@@ -129,10 +129,12 @@ inputset = (input_tensor, label_tensor)
 hybrid_model.model.toggle_calibrate(enable=True)
 hybrid_model.compile_model(inputset, n_bits=16, device="cuda")
 hybrid_model.model.toggle_calibrate(enable=False)
+hybrid_model.model.to("cuda")
+
 def train_custom_model(
     hybrid_model, train_dataloader, training_args, fhe="disable"
 ):  # pylint: disable=too-many-locals
-    device = "cpu"
+    device = "gpu"
     hybrid_model.model.to(device)
 
     # Training loop
