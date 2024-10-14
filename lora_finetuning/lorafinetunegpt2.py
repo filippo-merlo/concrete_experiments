@@ -80,7 +80,6 @@ training_args = TrainingArguments(
     per_device_train_batch_size=8,
     gradient_accumulation_steps=2,
     save_total_limit=1,
-    use_gpu=True,
     use_cpu=False,
     learning_rate=5e-3,
     logging_strategy="epoch",
